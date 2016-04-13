@@ -1,0 +1,29 @@
+package com.lovi.um.common;
+
+public class ResponseMessage {
+
+	private int status;
+	private Object message;
+
+	public ResponseMessage(int status, Object message) {
+		this.status = status;
+		this.message = message;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public Object getMessage() {
+		return message;
+	}
+
+	public void setMessage(Object message) {
+		this.message = message;
+	}
+
+}
