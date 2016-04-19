@@ -28,7 +28,7 @@ public class IndexController {
 			responseResult.complete("index");
 	}
 	
-	@RequestMapping(value="/sign-in",method=HttpMethod.POST)
+	@RequestMapping(method=HttpMethod.POST)
 	public void signIn(	@RequestParm("userId") String userId, 
 						@RequestParm("password") String password,
 						Session session,
