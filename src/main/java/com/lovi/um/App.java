@@ -1,7 +1,6 @@
 package com.lovi.um;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import com.lovi.puppy.PuppyApp;
 
 @SpringBootApplication
