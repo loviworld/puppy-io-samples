@@ -7,9 +7,21 @@ public class User{
 	@Id
 	private String userId;
 	private String name;
+	private String password;
 	private String address;
 	private String mobileNo;
 	
+	public User() {
+	}
+	
+	public User(String userId, String name, String password, String address, String mobileNo) {
+		super();
+		this.userId = userId;
+		this.name = name;
+		this.password = password;
+		this.address = address;
+		this.mobileNo = mobileNo;
+	}
 	public String getUserId() {
 		return userId;
 	}
@@ -21,6 +33,12 @@ public class User{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getAddress() {
 		return address;
@@ -34,12 +52,5 @@ public class User{
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
-	
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", name=" + name + ", address="
-				+ address + ", mobileNo=" + mobileNo + "]";
-	}
-	
 
 }

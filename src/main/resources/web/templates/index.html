@@ -6,27 +6,8 @@
 		<script src='user-mgr/static/js/puppy-io-angular.js'></script>
 	</head>
 	<body>
-		<h1>User Manager App</h1>
-		<div ng-controller="myCtrl">
-			<h3>users</h3>
-			<ul>
-		        <li ui-repeat="user in users">
-		        	{{user.userId}} | {{user.name}}
-		        </li>
-		    </ul>
-		</div>
-	
-		<script type="text/javascript">
-	   		var app = angular.module("myApp", ['puppy-io']);
-	   		
-	   		app.config(function(WebServerProvider){
-	   			WebServerProvider.config('user-mgr',81);
-	   		});
-	   		
-	   		app.controller("myCtrl",function($scope){
-	   			
-	   		});
-	   	</script>
+		<h1>puppy-io</h1>
+		
 			
 	</body>
 </html>

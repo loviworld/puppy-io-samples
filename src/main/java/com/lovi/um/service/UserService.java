@@ -40,4 +40,9 @@ public class UserService{
 		return userRepository.findByUserId(userId);
 	}
 	
+	@ServiceFunction
+	public User findByUserIdAndPassword(String userId,String password){
+		return userRepository.findByUserIdAndPassword(userId, password);
+	}
+	
 }
