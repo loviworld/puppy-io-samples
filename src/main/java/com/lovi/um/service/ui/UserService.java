@@ -15,7 +15,7 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@UIServiceFunction(listenerAddress="users", delay=1)
+	@UIServiceFunction(value="users", delay=1)
 	public List<User> pushUsers(){
 		return userRepository.findAll();
 	}

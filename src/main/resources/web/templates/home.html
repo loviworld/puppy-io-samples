@@ -11,7 +11,7 @@
 		<div ng-controller="myCtrl">
 			<h3>users</h3>
 			<ul>
-		        <li ui-repeat="user in users">
+		        <li ui-repeat="user in UserService.users">
 		        	{{user.userId}} | {{user.name}}
 		        </li>
 		    </ul>
