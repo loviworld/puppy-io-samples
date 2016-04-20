@@ -13,6 +13,8 @@ import com.lovi.puppy.message.ServiceCaller;
 import com.lovi.puppy.web.Session;
 import com.lovi.um.model.User;
 
+import io.vertx.ext.web.RoutingContext;
+
 @Controller
 public class IndexController {
 
@@ -20,9 +22,10 @@ public class IndexController {
 	private ServiceCaller serviceCaller;
 	
 	@RequestMapping
-	public void index(Session session,HttpResponseResult responseResult){
+	public void index(Session session, RoutingContext routingContext, HttpResponseResult responseResult){
 		User loggedUser = session.get("user", User.class);
 		if(loggedUser != null){
+			routingContext.put("loggedUser", loggedUser.getName());
 			responseResult.complete("home");
 		}else
 			responseResult.complete("index");
@@ -48,7 +51,6 @@ public class IndexController {
 		}, failResult);
 		
 		failResult.setHandler(fail->{
-			System.err.println(fail.getMessage());
 			responseResult.complete("/");
 		});
 		
