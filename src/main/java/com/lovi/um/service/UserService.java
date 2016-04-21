@@ -6,18 +6,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lovi.puppy.annotation.Service;
 import com.lovi.puppy.annotation.ServiceFunction;
+import com.lovi.puppy.exceptions.UICallerException;
+import com.lovi.puppy.message.UICaller;
 import com.lovi.um.dao.UserRepository;
 import com.lovi.um.model.User;
 
 @Service("UserService")
 public class UserService{
-
+	
+	@Autowired
+	private UICaller uICaller;
+	
 	@Autowired
 	private UserRepository userRepository;
 	
 	@ServiceFunction
 	public void insert(User user){
-		userRepository.insert(user);
+		User insertedUser = userRepository.insert(user);
+		try {
+			uICaller.call("userInsertedState", "successfully inserted user - " + insertedUser.getUserId() );
+		} catch (UICallerException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@ServiceFunction

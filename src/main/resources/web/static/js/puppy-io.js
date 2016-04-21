@@ -299,7 +299,7 @@
   
   /**
    * listen
-   * listener address format -> {appName}.{serviceClass + methodName}
+   * listener address format -> {appName}.{address}
    * @param {String} methodName
    * @param {Object} headers
    * @param {Function} callback
