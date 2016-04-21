@@ -4,9 +4,23 @@
 		<script src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
 		<script src='static/js/puppy-io.js'></script>
 		<script src='static/js/puppy-io-angular.js'></script>
+		
+		<link rel="stylesheet" href="/user-mgr/static/css/theme/bootstrap.min.css" />
+		<script src="/user-mgr/static/js/theme/jquery-2.2.3.min.js" ></script>
+		<script src="/user-mgr/static/js/theme/bootstrap.min.js" ></script>
 	</head>
 	<body>
-		<h1>User Manager App</h1>
+		<nav class="navbar navbar-default">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="#">user-manager</a>
+		    </div>
+    		<div class="collapse navbar-collapse">
+    			<ul class="nav navbar-nav navbar-right">
+			        <li><a href="#">puppy-io</a></li>
+			        <li><a href="#">sign-out</a></li>
+      			</ul>
+    		</div>
+		</nav>
 		<p th:text="${loggedUser.name}"></p>
 		<div ng-controller="myCtrl">
 			<h3>users</h3>

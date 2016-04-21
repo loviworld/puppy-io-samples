@@ -25,7 +25,7 @@ public class IndexController {
 		User loggedUser = session.get("user", User.class);
 		if(loggedUser != null){
 			viewAttribute.put("loggedUser", loggedUser);
-			responseResult.complete("home");
+			responseResult.complete("users-dashboard");
 		}else
 			responseResult.complete("index");
 	}

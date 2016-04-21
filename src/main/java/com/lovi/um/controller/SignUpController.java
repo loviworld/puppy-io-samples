@@ -7,6 +7,8 @@ import com.lovi.puppy.annotation.RequestMapping;
 import com.lovi.puppy.annotation.enums.HttpMethod;
 import com.lovi.puppy.exceptions.ServiceCallerException;
 import com.lovi.puppy.future.HttpResponseResult;
+import com.lovi.puppy.message.FailResult;
+import com.lovi.puppy.message.Result;
 import com.lovi.puppy.message.ServiceCaller;
 import com.lovi.puppy.web.Session;
 import com.lovi.puppy.web.ViewAttribute;
@@ -27,10 +29,22 @@ public class SignUpController {
 	@RequestMapping(method=HttpMethod.POST)
 	public void signUp(	@ModelAttribute User user,
 						Session session,
+						ViewAttribute viewAttribute,
 						HttpResponseResult responseResult) throws ServiceCallerException{
 		
-		serviceCaller.call("UserService.insert", user);
-		responseResult.complete("/");
+		Result<User> result = Result.create();
+		FailResult failResult = FailResult.create();
+		
+		serviceCaller.call("UserService.insert", result, user);
+		
+		result.process(newUser->{
+			responseResult.complete("/");
+		}, failResult);
+		
+		failResult.setHandler(fail->{
+			viewAttribute.put("message", "fail - duplicate user");
+			responseResult.complete("sign-up");
+		});
 		
 	}
 
