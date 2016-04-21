@@ -299,25 +299,25 @@
   
   /**
    * listen
-   * listener address format -> ui.{appName}.{methodName}
+   * listener address format -> {appName}.{serviceClass + methodName}
    * @param {String} methodName
    * @param {Object} headers
    * @param {Function} callback
    */
   ServiceListener.prototype.listen = function(methodName, headers, callback){
-	  var address = 'ui.' + this.appName + '.' + methodName;
+	  var address = this.appName + '.' + methodName;
 	  this.EventBusCon.registerHandler(address, headers, callback);
   };
   
   /**
    * listen
-   * listener address format -> ui.{appName}.{methodName}
+   * listener address format -> {appName}.{serviceClass + methodName}
    * @param {String} methodName
    * @param {Object} headers
    * @param {Function} callback
    */
   ServiceListener.prototype.unregisterHandler = function(methodName, headers, callback){
-	  var address = 'ui.' + this.appName + '.' + methodName;
+	  var address = this.appName + '.' + methodName;
 	  this.EventBusCon.unregisterHandler(address, headers, callback);
   };
   

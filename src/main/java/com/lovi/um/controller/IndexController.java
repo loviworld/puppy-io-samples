@@ -24,7 +24,7 @@ public class IndexController {
 	public void index(Session session, ViewAttribute viewAttribute, HttpResponseResult responseResult){
 		User loggedUser = session.get("user", User.class);
 		if(loggedUser != null){
-			viewAttribute.put("loggedUser", loggedUser.getName());
+			viewAttribute.put("loggedUser", loggedUser);
 			responseResult.complete("home");
 		}else
 			responseResult.complete("index");

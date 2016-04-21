@@ -2,12 +2,12 @@
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
 		<script src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
-		<script src='user-mgr/static/js/puppy-io.js'></script>
-		<script src='user-mgr/static/js/puppy-io-angular.js'></script>
+		<script src='static/js/puppy-io.js'></script>
+		<script src='static/js/puppy-io-angular.js'></script>
 	</head>
 	<body>
 		<h1>User Manager App</h1>
-		<p th:text="${context.get('loggedUser')}"></p>
+		<p th:text="${loggedUser.name}"></p>
 		<div ng-controller="myCtrl">
 			<h3>users</h3>
 			<ul>
