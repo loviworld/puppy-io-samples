@@ -22,11 +22,10 @@ public class IndexController {
 	private ServiceCaller serviceCaller;
 	
 	@RequestMapping
-	public void loadIndexView(Session session, ViewAttribute viewAttribute, HttpResponseResult responseResult){
+	public void loadIndexView(Session session, HttpResponseResult responseResult){
 		User loggedUser = session.get("user", User.class);
 		if(loggedUser != null){
-			viewAttribute.put("loggedUser", loggedUser);
-			responseResult.complete("users-dashboard");
+			responseResult.complete("/users-dashboard");
 		}else
 			responseResult.complete("index");
 	}
