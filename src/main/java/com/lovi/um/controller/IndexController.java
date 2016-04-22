@@ -20,65 +20,66 @@ public class IndexController {
 
 	@Autowired
 	private ServiceCaller serviceCaller;
-	
+
 	@RequestMapping
-	public void loadIndexView(Session session, HttpResponseResult responseResult){
+	public void loadIndexView(Session session, HttpResponseResult responseResult) {
 		User loggedUser = session.get("user", User.class);
-		if(loggedUser != null){
+		if (loggedUser != null) {
 			responseResult.complete("/users-dashboard");
-		}else
+		} else
 			responseResult.complete("index");
 	}
-	
-	@RequestMapping(method=HttpMethod.POST)
-	public void signIn(	@RequestParm("userId") String userId, 
-						@RequestParm("password") String password,
-						Session session,
-						HttpResponseResult responseResult) throws ServiceCallerException{
-		
+
+	@RequestMapping(method = HttpMethod.POST)
+	public void signIn(@RequestParm("userId") String userId, 
+							@RequestParm("password") String password, Session session,
+							HttpResponseResult responseResult) throws ServiceCallerException {
+
 		Result<User> result = Result.create();
 		FailResult failResult = FailResult.create();
-		
+
 		serviceCaller.call("UserService.findByUserIdAndPassword", result, userId, password);
-		
-		result.process(user->{
-			if(user != null)
+
+		result.process(user -> {
+			if (user != null)
 				session.put("user", user);
-			
+
 			responseResult.complete("/");
-			
-		}, failResult);
-		
-		failResult.setHandler(fail->{
+
+		} , failResult);
+
+		failResult.setHandler(fail -> {
 			responseResult.complete("/");
 		});
-		
+
 	}
-	
+
 	@RequestMapping("/sign-up")
-	public void loadSignUpView(HttpResponseResult responseResult){
+	public void loadSignUpView(@RequestParm(value="message", required=false) String message, ViewAttribute viewAttribute, HttpResponseResult responseResult) {
+		
+		if(message != null)
+			viewAttribute.put("message", message);
+		
 		responseResult.complete("sign-up");
 	}
-	
-	@RequestMapping(value="/sign-up",method=HttpMethod.POST)
-	public void signUp(	@ModelAttribute User user,
-						Session session,
-						ViewAttribute viewAttribute,
-						HttpResponseResult responseResult) throws ServiceCallerException{
-		
+
+	@RequestMapping(value = "/sign-up", method = HttpMethod.POST)
+	public void signUp(@ModelAttribute User user, 
+							Session session, 
+							HttpResponseResult responseResult)throws ServiceCallerException {
+
 		Result<User> result = Result.create();
 		FailResult failResult = FailResult.create();
-		
+
 		serviceCaller.call("UserService.insert", result, user);
-		
-		result.process(newUser->{
+
+		result.process(newUser -> {
 			responseResult.complete("/");
-		}, failResult);
-		
-		failResult.setHandler(fail->{
-			viewAttribute.put("message", "fail - duplicate user");
-			responseResult.complete("/sign-up");
+		} , failResult);
+
+		failResult.setHandler(fail -> {
+			responseResult.complete("/sign-up?message=" + "duplicate_user");
 		});
-		
+
 	}
 }

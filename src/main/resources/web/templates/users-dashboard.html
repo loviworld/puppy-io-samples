@@ -6,6 +6,7 @@
 		<script src='/static/js/puppy-io-angular.js'></script>
 		
 		<link rel="stylesheet" href="/static/css/theme/bootstrap.min.css" />
+		<link rel="stylesheet" href="/static/css/site.css" />
 		<script src="/static/js/theme/jquery-2.2.3.min.js" ></script>
 		<script src="/static/js/theme/bootstrap.min.js" ></script>
 	</head>
@@ -24,12 +25,12 @@
 		<div ng-controller="myCtrl" class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h3>users</h3>
 				    <table class="table">
+				    	<caption>users list</caption>
 				    	<thead>
 				    		<tr>
-				    			<td>UserId</td>
-				    			<td>Name</td>
+				    			<th>UserId</th>
+				    			<th>Name</th>
 				    		</tr>
 				    	</thead>
 				    	<tbody>
@@ -56,5 +57,10 @@
 	   		});
 	   	</script>
 			
+		<footer class="footer mastfoot" >
+	      <div class="container" align="center">
+	        <p class="text-muted"><a href="https://github.com/loviworld/puppy-io">puppy-io 2016</a></p>
+	      </div>
+	    </footer>
 	</body>
 </html>
