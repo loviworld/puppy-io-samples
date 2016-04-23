@@ -32,7 +32,9 @@ public class IndexController {
 
 	@RequestMapping(method = HttpMethod.POST)
 	public void signIn(@RequestParm("userId") String userId, 
-							@RequestParm("password") String password, Session session,
+							@RequestParm("password") String password, 
+							Session session,
+							ViewAttribute viewAttribute, 
 							HttpResponseResult responseResult) throws ServiceCallerException {
 
 		Result<User> result = Result.create();
@@ -49,23 +51,22 @@ public class IndexController {
 		} , failResult);
 
 		failResult.setHandler(fail -> {
-			responseResult.complete("/");
+			viewAttribute.put("userId", userId);
+			viewAttribute.put("password", password);
+			responseResult.complete("index");
 		});
 
 	}
 
 	@RequestMapping("/sign-up")
-	public void loadSignUpView(@RequestParm(value="message", required=false) String message, ViewAttribute viewAttribute, HttpResponseResult responseResult) {
-		
-		if(message != null)
-			viewAttribute.put("message", message);
-		
+	public void loadSignUpView(HttpResponseResult responseResult) {
 		responseResult.complete("sign-up");
 	}
 
 	@RequestMapping(value = "/sign-up", method = HttpMethod.POST)
 	public void signUp(@ModelAttribute User user, 
-							Session session, 
+							Session session,
+							ViewAttribute viewAttribute, 
 							HttpResponseResult responseResult)throws ServiceCallerException {
 
 		Result<User> result = Result.create();
@@ -78,8 +79,11 @@ public class IndexController {
 		} , failResult);
 
 		failResult.setHandler(fail -> {
-			responseResult.complete("/sign-up?message=" + "duplicate_user");
+			viewAttribute.put("user", user);
+			viewAttribute.put("message", "duplicate_user");
+			responseResult.complete("sign-up");
 		});
 
 	}
+	
 }
