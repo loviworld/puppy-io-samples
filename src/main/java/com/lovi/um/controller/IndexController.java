@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.lovi.puppy.annotation.Controller;
 import com.lovi.puppy.annotation.ModelAttribute;
 import com.lovi.puppy.annotation.RequestMapping;
-import com.lovi.puppy.annotation.RequestParm;
 import com.lovi.puppy.annotation.enums.HttpMethod;
 import com.lovi.puppy.exceptions.ServiceCallerException;
 import com.lovi.puppy.future.HttpResponseResult;
@@ -31,8 +30,7 @@ public class IndexController {
 	}
 
 	@RequestMapping(method = HttpMethod.POST)
-	public void signIn(@RequestParm("userId") String userId, 
-							@RequestParm("password") String password, 
+	public void signIn(@ModelAttribute User user, 
 							Session session,
 							ViewAttribute viewAttribute, 
 							HttpResponseResult responseResult) throws ServiceCallerException {
@@ -40,19 +38,18 @@ public class IndexController {
 		Result<User> result = Result.create();
 		FailResult failResult = FailResult.create();
 
-		serviceCaller.call("UserService.findByUserIdAndPassword", result, userId, password);
+		serviceCaller.call("UserService.findByUserIdAndPassword", result, user.getUserId(), user.getPassword());
 
-		result.process(user -> {
-			if (user != null)
-				session.put("user", user);
+		result.process(u -> {
+			if (u != null)
+				session.put("user", u);
 
 			responseResult.complete("/");
 
 		} , failResult);
 
 		failResult.setHandler(fail -> {
-			viewAttribute.put("userId", userId);
-			viewAttribute.put("password", password);
+			viewAttribute.put("user", user);
 			responseResult.complete("index");
 		});
 

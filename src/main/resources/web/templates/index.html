@@ -18,16 +18,16 @@
 				<div class="col-md-3"></div>
 				<div class="col-md-6">
 					<h3>sign-in</h3>
-					<form method="post">
+					<form method="post" th:object="${user}">
 				
 						<div class="form-group">
 						    <label for="userId">User Id</label>
-							<input type="text" class="form-control" name="userId" id="userId" required="required" placeholder="User Id"/>
+							<input type="text" class="form-control" name="userId" id="userId" th:field="*{userId}" required="required" placeholder="User Id"/>
 						</div>
 						
 						<div class="form-group">
 						    <label for="password">Password</label>
-							<input type="password" class="form-control" name="password" id="password" required="required" placeholder="Password"/>
+							<input type="password" class="form-control" name="password" id="password" th:field="*{password}" required="required" placeholder="Password"/>
 						</div>
 						
 						<input class="btn btn-primary" type="submit" value="Sign In" />
