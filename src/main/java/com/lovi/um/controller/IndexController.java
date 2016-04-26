@@ -21,8 +21,9 @@ public class IndexController {
 	private ServiceCaller serviceCaller;
 
 	@RequestMapping
-	public void loadIndexView(Session session, HttpResponseResult responseResult) {
+	public void loadIndexView(ViewAttribute viewAttribute, Session session, HttpResponseResult responseResult) {
 		User loggedUser = session.get("user", User.class);
+		viewAttribute.put("user", new User());
 		if (loggedUser != null) {
 			responseResult.complete("/users-dashboard");
 		} else
@@ -41,15 +42,21 @@ public class IndexController {
 		serviceCaller.call("UserService.findByUserIdAndPassword", result, user.getUserId(), user.getPassword());
 
 		result.process(u -> {
-			if (u != null)
+			if (u != null){
 				session.put("user", u);
-
-			responseResult.complete("/");
+				responseResult.complete("/");
+			}else{
+				viewAttribute.put("user", user);
+				viewAttribute.put("message", "Wrong userId or Password");
+				responseResult.complete("index");
+			}
+			
 
 		} , failResult);
 
 		failResult.setHandler(fail -> {
 			viewAttribute.put("user", user);
+			viewAttribute.put("message", fail.getMessage());
 			responseResult.complete("index");
 		});
 
